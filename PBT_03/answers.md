@@ -119,3 +119,97 @@ Nếu Rule A thêm !important, element có màu gì? Tại sao?
 Element sẽ có màu đen (black).
 
 Tại sao: Từ khóa !important là một ngoại lệ đặc biệt trong CSS. Khi một thuộc tính được gắn !important, nó sẽ phá vỡ mọi quy tắc tính điểm specificity và ép trình duyệt phải ưu tiên áp dụng thuộc tính đó tuyệt đối, đánh bại cả ID selector hay Inline CSS. Do đó Rule A (màu đen) sẽ chiến thắng tất cả.
+Phần B
+Bài B2
+Phần 1
+
+Hộp 1 (content-box): chiều rộng thực tế = 350 px (đo từ DevTools)
+Hộp 2 (border-box): chiều rộng thực tế = 300 px (đo từ DevTools)
+Giải thích sự khác biệt:
+content-box: Trình duyệt hiểu width chỉ là kích thước của phần nội dung (content). Nếu thêm padding hay border, hộp sẽ bị phình to ra thêm.
+border-box: Trình duyệt hiểu width là kích thước tổng cuối cùng của hộp. Padding và border sẽ được lấn vào bên trong, giúp kích thước hộp luôn cố định đúng width đã đặt.
+Bài B3
+STT	CSS Rule Selector	Specificity Score	Màu sắc
+1	p	0, 0, 1	Gray
+2	p:first-line	0, 0, 2	Silver
+3	.text	0, 0, 2	Blue
+4	.text	0, 2, 0	Green
+5	.text:not(:hover)	0, 2, 0	Purple
+6	.text[class*=""light""]	0, 2, 0	Orange
+7	#demo	1,0,0	Brown
+8	p#demo	1, 0, 1	Cyan
+9	#demo.text	1, 1, 0	Magenta
+10	#demo.text.highlight	1, 2, 0	Red
+Element cuối cùng hiển thị màu gì? Tại sao?
+Trả lời: Hiển thị màu Đỏ (Red).
+
+Giải thích: Vì Rule số 10 (#demo.text.highlight) có điểm Specificity cao nhất (1,1,1). Trong CSS, trình duyệt sẽ ưu tiên Rule nào có điểm số từ trái sang phải cao nhất (ưu tiên ID nhất, rồi đến Class, cuối cùng mới là Element).
+
+Thay đổi thứ tự rules trong CSS file. Kết quả có đổi không? Giải thích.
+Trường hợp 1 (Khác điểm): Nếu đảo Rule 1 xuống dưới cùng, kết quả KHÔNG ĐỔI. Thẻ
+
+vẫn màu đỏ vì Rule 10 có điểm ưu tiên cao hơn hẳn Rule 1.
+
+Trường hợp 2 (Cùng điểm): Nếu đảo thứ tự giữa Rule 4, 5 và 6 (đều là 0,2,0), kết quả CÓ ĐỔI. Khi các Rule có độ ưu tiên bằng nhau, trình duyệt sẽ áp dụng quy tắc "The Last Rule Wins" (Rule nào viết sau sẽ đè lên Rule trước).
+
+PHẦN C — DEBUG & SUY LUẬN
+Câu C1
+Tính chiều rộng thực tế của sidebar và content (content-box!)
+Sidebar: 300 + 202 + 12 = 342 px
+Content: 660 + 302 + 12 = 722 px
+Layout bị vỡ vì:
+Tổng Chiều rộng thực tế của sidebar và content lớn hơn chiều rộng của container chứa nó nên theo cơ chế của float content sẽ bị đẩy xuống dưới
+Đưa ra 2 cách sửa:
+Cách 1: Dùng border-box Thêm box-sizing = border-box cho cả 2 khi đó chiều rộng của 2 phần tử sẽ là chiều rộng của border, content bị thu nhỏ cho vừa với border
+
+Cách 2: Không dùng border-box Phải tính toán chiều rộng của content sao cho khi cộng thêm padding và border thì bằng với chiều rộng mong muốn
+
+Sidebar = 300 - 202 - 12 = 258 px
+Content = 660 - 302 + 12 = 598 px
+Câu C2
+"Sản phẩm A" (h2) font-size = 20px
+Giải thích: Có hai selector nhắm vào phần tử này là .card .title (0, 2, 0) và .container (0, 1, 0 - thông qua kế thừa). Tuy nhiên, .card .title nhắm trực tiếp vào class của h2 nên nó thắng các giá trị kế thừa từ cha.
+
+color = green
+
+Giải thích: Có 3 selector tranh chấp màu sắc: .card .title (0, 2, 0), #featured .title (1, 1, 0), và .highlight. Mặc dù #featured .title có điểm ID rất cao, nhưng .highlight sử dụng từ khóa !important, nó ghi đè tất cả các quy tắc về độ cụ thể (specificity) để áp dụng màu xanh lá.
+
+Dưới đây là phân tích chi tiết về kết quả hiển thị của các phần tử dựa trên quy tắc Cascade (Thứ tự ưu tiên) và Inheritance (Kế thừa) trong CSS.
+
+"Sản phẩm A" (h2) font-size = 20px
+Giải thích: Có hai selector nhắm vào phần tử này là .card .title (0, 2, 0) và .container (0, 1, 0 - thông qua kế thừa). Tuy nhiên, .card .title nhắm trực tiếp vào class của h2 nên nó thắng các giá trị kế thừa từ cha.
+
+color = green
+
+Giải thích: Có 3 selector tranh chấp màu sắc: .card .title (0, 2, 0), #featured .title (1, 1, 0), và .highlight. Mặc dù #featured .title có điểm ID rất cao, nhưng .highlight sử dụng từ khóa !important, nó ghi đè tất cả các quy tắc về độ cụ thể (specificity) để áp dụng màu xanh lá.
+
+"Mô tả sản phẩm" (p trong card featured) color = blue
+Giải thích:
+
+Selector .card p (0, 1, 1) có thuộc tính color: inherit.
+
+Từ khóa inherit buộc phần tử
+
+phải lấy màu từ phần tử cha trực tiếp của nó là .card.
+
+Phần tử .card có selector .card { color: blue; } (0, 1, 0) quy định màu xanh dương. Vì vậy, thẻ
+
+này hiển thị màu xanh dương.
+
+"Sản phẩm B" (h2) font-size = 20px
+Giải thích: Tương tự Sản phẩm A, selector .card .title (0, 2, 0) nhắm trực tiếp vào phần tử này và có độ cụ thể cao hơn các giá trị font-size mặc định hoặc kế thừa từ .container.
+
+color = blue
+
+Giải thích: Thẻ h2 này không có id featured và không có class highlight. Do đó, selector #featured .title và .highlight không áp dụng. Selector duy nhất khớp là .card .title, nhưng selector này không định nghĩa màu sắc. Vì vậy, h2 kế thừa màu sắc từ cha của nó là .card (đang có màu xanh dương).
+
+"Mô tả sản phẩm B" (p.highlight) color = green
+Giải thích:
+
+Mặc dù thẻ
+
+nằm trong .card có quy tắc color: inherit (đang cố gắng lấy màu xanh từ .card).
+
+Tuy nhiên, class .highlight trên chính nó có thuộc tính color: green !important;.
+
+Trong CSS Cascade, một thuộc tính được khai báo trực tiếp trên phần tử với !important sẽ luôn chiến thắng các thuộc tính được kế thừa hoặc các selector thông thường khác.
