@@ -1,0 +1,147 @@
+.portfolio-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--color-dark);
+}
+
+/* Portfolio Filters */
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 3rem;
+    flex-wrap: wrap; 
+}
+
+.filter-btn {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--color-primary);
+    color: var(--color-light);
+}
+
+/*PORTFOLIO GRID & HOVER EFFECTS*/
+.portfolio-grid {
+    display: grid;
+    
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.portfolio-item .lightbox-link {
+    display: block;
+    height: 100%;
+}
+
+.portfolio-item img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+
+.portfolio-item:hover img {
+    transform: scale(1.1);
+}
+
+
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(30, 41, 59, 0.95) 0%,
+        rgba(30, 41, 59, 0.6) 50%,
+        transparent 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--color-light);
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1; 
+}
+
+.portfolio-overlay h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.25rem;
+}
+
+.portfolio-overlay p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+}
+
+/* CSS-ONLY LIGHTBOX (:target Magic) */
+.lightbox {
+    position: fixed;
+    inset: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden; 
+    transition: all 0.3s ease;
+    z-index: 2000; 
+}
+
+
+.lightbox:target {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.lightbox:target img {
+    transform: scale(1);
+}
+
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 3rem;
+    color: white;
+    text-decoration: none;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.lightbox-close:hover {
+    color: var(--color-primary);
+}
