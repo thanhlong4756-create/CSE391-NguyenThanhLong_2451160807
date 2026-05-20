@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Sinh viên</title>
+
+    <!-- Liên kết CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Hệ thống Quản lý Sinh viên</h1>
+
+        <div class="top-bar">
+
+            <button class="btn-add">
+                Thêm sinh viên mới
+            </button>
+
+            <div class="statistics">
+                <p>Tổng số sinh viên: <strong>1</strong></p>
+                <p>Điểm trung bình lớp: <strong>8.5</strong></p>
+            </div>
+
+        </div>
+
+        <!-- Bảng sinh viên -->
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Mã SV</th>
+                    <th>Họ và tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Lớp</th>
+                    <th>Điểm TB</th>
+                    <th>Email</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>SV001</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>2005-01-01</td>
+                    <td>K66CNTT</td>
+                    <td>8.5</td>
+                    <td>vana@gmail.com</td>
+                    <td>
+                        <button class="btn-edit">Sửa</button>
+                        <button class="btn-delete">Xóa</button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <!-- Form -->
+
+        <div class="form-container">
+
+            <h2>Thêm Sinh Viên</h2>
+
+            <form>
+
+                <div class="form-group">
+                    <label>Mã sinh viên</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Ngày sinh</label>
+                    <input type="date">
+                </div>
+
+                <div class="form-group">
+                    <label>Lớp học</label>
+                    <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Điểm trung bình</label>
+                    <input type="number">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email">
+                </div>
+
+                <div class="form-buttons">
+
+                    <button type="submit" class="btn-save">Lưu lại</button>
+
+                    <button type="reset" class="btn-cancel">Hủy</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+     <script src="main.js"></script>
+</body>
+</html>
